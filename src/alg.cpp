@@ -46,45 +46,37 @@ int countPairs2(int *arr, int len, int value) {
     return count;
 }
 
-int findFirst(int *arr, int left, int right, int target) {
-    int res = -1;
-    while (left <= right) {
-        int mid = left + (right - left) / 2;
-        if (arr[mid] == target) {
-            res = mid;
-            right = mid - 1;
-        } else if (arr[mid] < target) {
-            left = mid + 1;
-        } else {
-            right = mid - 1;
-        }
-    }
-    return res;
-}
-
-int findLast(int *arr, int left, int right, int target) {
-    int res = -1;
-    while (left <= right) {
-        int mid = left + (right - left) / 2;
-        if (arr[mid] == target) {
-            res = mid;
-            left = mid + 1;
-        } else if (arr[mid] < target) {
-            left = mid + 1;
-        } else {
-            right = mid - 1;
-        }
-    }
-    return res;
-}
-
 int countPairs3(int *arr, int len, int value) {
     int count = 0;
-    for (int i = 0; i < len - 1; ++i) {
+    for (int i = 0; i < len - 1; i++) {
         int target = value - arr[i];
-        int first = findFirst(arr, i + 1, len - 1, target);
+        int low = i + 1, high = len - 1;
+        int first = -1;
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            if (arr[mid] == target) {
+                first = mid;
+                high = mid - 1;
+            } else if (arr[mid] < target) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
         if (first != -1) {
-            int last = findLast(arr, i + 1, len - 1, target);
+            low = first, high = len - 1;
+            int last = first;
+            while (low <= high) {
+                int mid = low + (high - low) / 2;
+                if (arr[mid] == target) {
+                    last = mid;
+                    low = mid + 1;
+                } else if (arr[mid] < target) {
+                    low = mid + 1;
+                } else {
+                    high = mid - 1;
+                }
+            }
             count += (last - first + 1);
         }
     }
