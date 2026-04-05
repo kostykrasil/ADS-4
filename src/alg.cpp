@@ -10,6 +10,7 @@ int countPairs1(int *arr, int len, int value) {
     }
     return count;
 }
+
 int countPairs2(int *arr, int len, int value) {
     int count = 0;
     int left = 0;
@@ -19,7 +20,7 @@ int countPairs2(int *arr, int len, int value) {
         if (sum == value) {
             if (arr[left] == arr[right]) {
                 int n = right - left + 1;
-                count += (n * (n - 1)) / 2; 
+                count += (n * (n - 1)) / 2;
                 break;
             } else {
                 int c_left = 1;
@@ -44,13 +45,14 @@ int countPairs2(int *arr, int len, int value) {
     }
     return count;
 }
+
 int findFirst(int *arr, int left, int right, int target) {
     int res = -1;
     while (left <= right) {
         int mid = left + (right - left) / 2;
         if (arr[mid] == target) {
             res = mid;
-            right = mid - 1; 
+            right = mid - 1;
         } else if (arr[mid] < target) {
             left = mid + 1;
         } else {
@@ -59,13 +61,14 @@ int findFirst(int *arr, int left, int right, int target) {
     }
     return res;
 }
+
 int findLast(int *arr, int left, int right, int target) {
     int res = -1;
     while (left <= right) {
         int mid = left + (right - left) / 2;
         if (arr[mid] == target) {
             res = mid;
-            left = mid + 1; 
+            left = mid + 1;
         } else if (arr[mid] < target) {
             left = mid + 1;
         } else {
@@ -74,6 +77,7 @@ int findLast(int *arr, int left, int right, int target) {
     }
     return res;
 }
+
 int countPairs3(int *arr, int len, int value) {
     int count = 0;
     for (int i = 0; i < len - 1; ++i) {
